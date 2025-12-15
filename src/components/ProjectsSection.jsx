@@ -2,6 +2,12 @@ import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 import { ExternalLink, Github, Wallet, Users, Bot, BarChart3, Bell, GitBranch, FileText, Zap } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
+const colorMap = {
+  'cyan-blue': { from: '#06b6d4', to: '#3b82f6' },
+  'purple-pink': { from: '#a855f7', to: '#ec4899' },
+  'green-emerald': { from: '#10b981', to: '#059669' },
+};
+
 const projects = [
   {
     title: 'Getways',
@@ -14,7 +20,7 @@ const projects = [
       { icon: Bot, text: 'Custom Chatbot Integration' },
       { icon: BarChart3, text: 'Real-time Analytics with Chart.js' },
     ],
-    color: 'from-cyan-500 to-blue-500',
+    colorKey: 'cyan-blue',
     glow: 'hover:shadow-cyan-500/20',
   },
   {
@@ -28,7 +34,7 @@ const projects = [
       { icon: Bell, text: 'Real-time Notifications' },
       { icon: GitBranch, text: 'Interactive Org Chart' },
     ],
-    color: 'from-purple-500 to-pink-500',
+    colorKey: 'purple-pink',
     glow: 'hover:shadow-purple-500/20',
   },
   {
@@ -42,7 +48,7 @@ const projects = [
       { icon: Zap, text: '60% Time Reduction' },
       { icon: BarChart3, text: 'Real-time Progress Tracking' },
     ],
-    color: 'from-green-500 to-emerald-500',
+    colorKey: 'green-emerald',
     glow: 'hover:shadow-green-500/20',
   },
 ];
@@ -75,7 +81,12 @@ const ProjectsSection = () => {
                 style={{ transitionDelay: `${index * 150}ms` }}
               >
                 {/* Gradient header */}
-                <div className={`h-2 bg-gradient-to-r ${project.color}`} />
+                <div 
+                  className="h-2"
+                  style={{
+                    background: `linear-gradient(to right, ${colorMap[project.colorKey].from}, ${colorMap[project.colorKey].to})`,
+                  }}
+                />
                 
                 <div className="p-8">
                   <div className="mb-6">

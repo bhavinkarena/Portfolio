@@ -1,35 +1,44 @@
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 
+const colorMap = {
+  'yellow-orange': { from: '#eab308', to: '#f97316' },
+  'cyan-blue': { from: '#06b6d4', to: '#3b82f6' },
+  'green-emerald': { from: '#10b981', to: '#059669' },
+  'purple-pink': { from: '#a855f7', to: '#ec4899' },
+  'orange-red': { from: '#f97316', to: '#ef4444' },
+  'indigo-purple': { from: '#6366f1', to: '#a855f7' },
+};
+
 const skillCategories = [
   {
     title: 'Languages',
     skills: ['JavaScript', 'TypeScript', 'Python', 'HTML', 'CSS'],
-    color: 'from-yellow-500 to-orange-500',
+    colorKey: 'yellow-orange',
   },
   {
     title: 'Frontend',
     skills: ['React.js', 'Redux', 'RTK Query', 'Tailwind CSS', 'Shadcn', 'Bootstrap', 'React Admin'],
-    color: 'from-cyan-500 to-blue-500',
+    colorKey: 'cyan-blue',
   },
   {
     title: 'Backend',
     skills: ['Node.js', 'Express.js', 'Parse Server', 'Socket.IO', 'REST APIs'],
-    color: 'from-green-500 to-emerald-500',
+    colorKey: 'green-emerald',
   },
   {
     title: 'Databases',
     skills: ['MongoDB', 'MySQL', 'PostgreSQL', 'Redis'],
-    color: 'from-purple-500 to-pink-500',
+    colorKey: 'purple-pink',
   },
   {
     title: 'Tools & Services',
     skills: ['AWS S3', 'Git/GitHub', 'Stripe', 'Chart.js', 'Puppeteer', 'Docker'],
-    color: 'from-orange-500 to-red-500',
+    colorKey: 'orange-red',
   },
   {
     title: 'AI/ML',
     skills: ['OpenAI API', 'Gemini', 'LangChain', 'Prompt Engineering'],
-    color: 'from-indigo-500 to-purple-500',
+    colorKey: 'indigo-purple',
   },
 ];
 
@@ -62,7 +71,12 @@ const SkillsSection = () => {
                 }`}
                 style={{ transitionDelay: `${index * 100}ms` }}
               >
-                <div className={`h-1 rounded-full bg-gradient-to-r ${category.color} mb-6`} />
+                <div 
+                  className="h-1 rounded-full mb-6"
+                  style={{
+                    background: `linear-gradient(to right, ${colorMap[category.colorKey].from}, ${colorMap[category.colorKey].to})`,
+                  }}
+                />
                 <h3 className="text-lg font-bold text-foreground mb-4">{category.title}</h3>
                 <div className="flex flex-wrap gap-2">
                   {category.skills.map((skill) => (

@@ -3,7 +3,7 @@ import { Briefcase, Calendar, CheckCircle2 } from 'lucide-react';
 
 const experiences = [
   {
-    title: 'MERN Stack Developer Intern',
+    title: 'MERN Stack Developer',
     company: 'The Bilions',
     period: 'Feb 2025 - Aug 2025',
     current: true,

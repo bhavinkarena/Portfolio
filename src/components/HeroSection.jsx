@@ -106,16 +106,6 @@ const HeroSection = () => {
             </a>
           ))}
         </div>
-
-        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 opacity-0 animate-fade-up delay-700">
-          <a
-            href="#about"
-            className="flex flex-col items-center text-muted-foreground hover:text-primary transition-colors"
-          >
-            <span className="text-sm mb-2">Scroll Down</span>
-            <ArrowDown size={20} className="animate-bounce" />
-          </a>
-        </div>
       </div>
     </section>
   );
