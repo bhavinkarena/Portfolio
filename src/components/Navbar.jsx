@@ -68,34 +68,32 @@ const Navbar = () => {
       </div>
 
       {/* Mobile Navigation */}
-      <div
-        className={`md:hidden absolute top-full left-0 right-0 nav-blur transition-all duration-300 overflow-x-hidden ${
-          isMobileMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible'
-        }`}
-      >
-        <div className="w-full px-4 md:px-6 py-6 flex flex-col gap-4 max-w-full">
-          {navLinks.map((link) => (
-            <a
-              key={link.name}
-              href={link.href}
-              className="text-muted-foreground hover:text-primary transition-colors duration-300 text-lg font-medium py-2"
-              onClick={() => setIsMobileMenuOpen(false)}
+      {isMobileMenuOpen && (
+        <div className="md:hidden fixed top-[60px] left-0 right-0 bottom-0 bg-background/95 backdrop-blur-xl z-50 transition-all duration-300">
+          <div className="w-full px-6 py-8 flex flex-col gap-6">
+            {navLinks.map((link) => (
+              <a
+                key={link.name}
+                href={link.href}
+                className="text-foreground hover:text-primary transition-colors duration-300 text-xl font-medium py-2 border-b border-border/30"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                {link.name}
+              </a>
+            ))}
+            <Button
+              variant="outline"
+              className="border-primary text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-300 w-full mt-4 py-6 text-lg"
+              onClick={() => {
+                window.open('https://drive.google.com/file/d/1mltYNBas7MojEUQbVrJlNwZIsAaDsVR5/view?usp=sharing', '_blank');
+                setIsMobileMenuOpen(false);
+              }}
             >
-              {link.name}
-            </a>
-          ))}
-          <Button
-            variant="outline"
-            className="border-primary text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-300 w-full"
-            onClick={() => {
-              window.open('https://drive.google.com/file/d/1mltYNBas7MojEUQbVrJlNwZIsAaDsVR5/view?usp=sharing', '_blank');
-              setIsMobileMenuOpen(false);
-            }}
-          >
-            Resume
-          </Button>
+              Resume
+            </Button>
+          </div>
         </div>
-      </div>
+      )}
     </nav>
   );
 };
