@@ -63,11 +63,11 @@ const SkillsSection = () => {
   const { ref, isVisible } = useScrollAnimation();
 
   return (
-    <section id="skills" className="section-padding relative">
+    <section id="skills" className="section-padding relative overflow-hidden">
       {/* Background decoration */}
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/5 to-transparent" />
 
-      <div className="container mx-auto relative">
+      <div className="w-full px-4 md:container md:mx-auto relative">
         <div
           ref={ref}
           className={`transition-all duration-1000 ${

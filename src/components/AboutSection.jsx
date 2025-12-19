@@ -35,8 +35,8 @@ const AboutSection = () => {
   const { ref, isVisible } = useScrollAnimation();
 
   return (
-    <section id="about" className="section-padding relative">
-      <div className="container mx-auto">
+    <section id="about" className="section-padding relative overflow-hidden">
+      <div className="w-full px-4 md:container md:mx-auto">
         <div ref={ref} className={`transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
           <div className="text-center mb-16">
             <span className="text-primary font-mono text-sm">About Me</span>

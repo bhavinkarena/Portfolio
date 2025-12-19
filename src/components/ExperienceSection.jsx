@@ -36,14 +36,14 @@ const ExperienceSection = () => {
   return (
     <section id="experience" className="section-padding relative overflow-hidden">
       {/* Background decoration */}
-      <div className="absolute top-1/2 left-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl" />
-      <div className="absolute bottom-0 right-0 w-96 h-96 bg-secondary/5 rounded-full blur-3xl" />
+      <div className="absolute top-1/2 left-0 w-32 md:w-64 h-32 md:h-64 bg-primary/5 rounded-full blur-3xl" />
+      <div className="absolute bottom-0 right-0 w-48 md:w-96 h-48 md:h-96 bg-secondary/5 rounded-full blur-3xl" />
 
-      <div className="container mx-auto relative">
+      <div className="w-full px-4 md:container md:mx-auto relative">
         <div ref={ref} className={`transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
           <div className="text-center mb-16">
             <span className="text-primary font-mono text-sm">Experience</span>
-            <h2 className="text-4xl md:text-5xl font-bold mt-4">
+            <h2 className="text-3xl md:text-5xl font-bold mt-4">
               Where I've <span className="gradient-text">Worked</span>
             </h2>
           </div>

@@ -88,10 +88,10 @@ const ContactSection = () => {
             </p>
           </div>
 
-          <div className="grid lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
+          <div className="grid lg:grid-cols-2 gap-8 md:gap-12 max-w-6xl mx-auto px-0 md:px-0">
             {/* Contact Form */}
             <div
-              className={`card-glass rounded-2xl p-8 transition-all duration-700 ${
+              className={`card-glass rounded-2xl p-6 md:p-8 transition-all duration-700 ${
                 isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'
               }`}
             >
@@ -162,7 +162,7 @@ const ContactSection = () => {
 
             {/* Contact Info */}
             <div
-              className={`space-y-8 transition-all duration-700 ${
+              className={`space-y-6 md:space-y-8 transition-all duration-700 ${
                 isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10'
               }`}
               style={{ transitionDelay: '200ms' }}
@@ -171,33 +171,33 @@ const ContactSection = () => {
                 <a
                   key={info.label}
                   href={info.href}
-                  className="card-glass rounded-2xl p-6 flex items-center gap-6 card-hover block"
+                  className="card-glass rounded-2xl p-4 md:p-6 flex items-center gap-4 md:gap-6 card-hover block"
                   style={{ transitionDelay: `${(index + 1) * 100}ms` }}
                 >
-                  <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
-                    <info.icon className="text-primary" size={24} />
+                  <div className="w-12 md:w-14 h-12 md:h-14 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
+                    <info.icon className="text-primary" size={20} />
                   </div>
-                  <div>
-                    <p className="text-sm text-muted-foreground mb-1">{info.label}</p>
-                    <p className="text-foreground font-medium">{info.value}</p>
+                  <div className="min-w-0">
+                    <p className="text-xs md:text-sm text-muted-foreground mb-1">{info.label}</p>
+                    <p className="text-sm md:text-base text-foreground font-medium break-words">{info.value}</p>
                   </div>
                 </a>
               ))}
 
               {/* Social Links */}
-              <div className="card-glass rounded-2xl p-6">
-                <p className="text-sm text-muted-foreground mb-4">Follow me on</p>
-                <div className="flex gap-4">
+              <div className="card-glass rounded-2xl p-4 md:p-6">
+                <p className="text-xs md:text-sm text-muted-foreground mb-4">Follow me on</p>
+                <div className="flex gap-3 md:gap-4">
                   {socialLinks.map((social) => (
                     <a
                       key={social.label}
                       href={social.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="w-12 h-12 rounded-xl bg-muted/50 flex items-center justify-center text-muted-foreground hover:bg-primary/10 hover:text-primary transition-all duration-300"
+                      className="w-10 md:w-12 h-10 md:h-12 rounded-xl bg-muted/50 flex items-center justify-center text-muted-foreground hover:bg-primary/10 hover:text-primary transition-all duration-300"
                       aria-label={social.label}
                     >
-                      <social.icon size={20} />
+                      <social.icon size={18} />
                     </a>
                   ))}
                 </div>

@@ -45,17 +45,17 @@ const HeroSection = () => {
   return (
     <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden">
       {/* Gradient orbs */}
-      <div className="absolute top-1/4 -left-1/4 w-96 h-96 bg-primary/20 rounded-full blur-3xl animate-float" />
-      <div className="absolute bottom-1/4 -right-1/4 w-96 h-96 bg-secondary/20 rounded-full blur-3xl animate-float" style={{ animationDelay: '3s' }} />
+      <div className="absolute top-1/4 left-0 w-64 md:w-96 h-64 md:h-96 bg-primary/20 rounded-full blur-3xl animate-float" />
+      <div className="absolute bottom-1/4 right-0 w-64 md:w-96 h-64 md:h-96 bg-secondary/20 rounded-full blur-3xl animate-float" style={{ animationDelay: '3s' }} />
 
-      <div className="container mx-auto px-4 text-center relative z-10">
+      <div className="w-full px-4 md:container md:mx-auto text-center relative z-10">
         <div className="opacity-0 animate-fade-up">
           <span className="inline-block px-4 py-2 rounded-full border border-primary/30 text-primary text-sm font-mono mb-6">
             Welcome to my portfolio
           </span>
         </div>
 
-        <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold mb-6 opacity-0 animate-fade-up delay-100">
+        <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold mb-6 opacity-0 animate-fade-up delay-100">
           <span className="text-foreground">Hi, I'm </span>
           <span className="gradient-text glow-text">Bhavin Karena</span>
         </h1>
