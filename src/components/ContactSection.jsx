@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import emailjs from '@emailjs/browser';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 import { Mail, Phone, MapPin, Send, Linkedin, Github } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -13,7 +14,7 @@ const contactInfo = [
 ];
 
 const socialLinks = [
-  { icon: Linkedin, href: 'https://linkedin.com/in/bhavinkarena', label: 'LinkedIn' },
+  { icon: Linkedin, href: 'https://www.linkedin.com/in/bhavin-karena/', label: 'LinkedIn' },
   { icon: Github, href: 'https://github.com/bhavinkarena', label: 'GitHub' },
   { icon: Mail, href: 'mailto:bhavinkarena2003@gmail.com', label: 'Email' },
 ];
@@ -29,20 +30,44 @@ const ContactSection = () => {
     message: '',
   });
 
+  // Initialize EmailJS
+  useEffect(() => {
+    emailjs.init('y8nga4C7rPwjBlCVt');
+  }, []);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-    
-    // Simulate form submission
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    
-    toast({
-      title: "Message Sent!",
-      description: "Thank you for reaching out. I'll get back to you soon!",
-    });
-    
-    setFormData({ name: '', email: '', subject: '', message: '' });
-    setIsLoading(false);
+
+    try {
+      await emailjs.send(
+        'service_24t5wge',
+        'template_mukvkkj',
+        {
+          name: formData.name,
+          email: formData.email,
+          title: formData.subject,
+          message: formData.message,
+          to_email: 'bhavinkarena2003@gmail.com',
+        }
+      );
+
+      toast({
+        title: "Message Sent!",
+        description: "Thank you for reaching out. I'll get back to you soon!",
+      });
+
+      setFormData({ name: '', email: '', subject: '', message: '' });
+    } catch (error) {
+      console.error('EmailJS error:', error);
+      toast({
+        title: "Error",
+        description: "Failed to send message. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (

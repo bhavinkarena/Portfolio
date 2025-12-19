@@ -52,7 +52,7 @@ const Navbar = () => {
           <Button
             variant="outline"
             className="border-primary text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-300"
-            onClick={() => window.open('/resume.pdf', '_blank')}
+            onClick={() => window.open('https://drive.google.com/file/d/1mltYNBas7MojEUQbVrJlNwZIsAaDsVR5/view?usp=sharing', '_blank')}
           >
             Resume
           </Button>
@@ -84,6 +84,16 @@ const Navbar = () => {
               {link.name}
             </a>
           ))}
+          <Button
+            variant="outline"
+            className="border-primary text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-300 w-full"
+            onClick={() => {
+              window.open('https://drive.google.com/file/d/1mltYNBas7MojEUQbVrJlNwZIsAaDsVR5/view?usp=sharing', '_blank');
+              setIsMobileMenuOpen(false);
+            }}
+          >
+            Resume
+          </Button>
         </div>
       </div>
     </nav>

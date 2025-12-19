@@ -18,7 +18,7 @@ const skills = [
     { name: 'MySQL', level: 75 },
   ]},
   { category: 'Tools', items: [
-    { name: 'AWS S3', level: 70 },
+    { name: 'AWS', level: 65 },
     { name: 'Git', level: 85 },
     { name: 'REST APIs', level: 90 },
   ]},

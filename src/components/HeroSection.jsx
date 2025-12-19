@@ -38,7 +38,7 @@ const HeroSection = () => {
   const socialLinks = [
     { icon: Mail, href: 'mailto:bhavinkarena2003@gmail.com', label: 'Email' },
     { icon: Phone, href: 'tel:+919737673650', label: 'Phone' },
-    { icon: Linkedin, href: 'https://linkedin.com/in/bhavinkarena', label: 'LinkedIn' },
+    { icon: Linkedin, href: 'https://www.linkedin.com/in/bhavin-karena/', label: 'LinkedIn' },
     { icon: Github, href: 'https://github.com/bhavinkarena', label: 'GitHub' },
   ];
 

@@ -9,9 +9,11 @@ const experiences = [
     current: true,
     achievements: [
       'Contributing to full-stack development with MERN stack',
-      'Working on frontend and backend feature implementations',
-      'Collaborating with the development team on scalable solutions',
-      'Learning and applying best practices in modern web development',
+      'Built fintech platform "Getways" with digital wallet management',
+      'Developed comprehensive HRMS with real-time notifications',
+      'Created full-stack e-commerce platform "Total Liquor" with React Native mobile app',
+      'Created AI-powered RFP platform "Winbid AI" with 60% time reduction',
+      'Implemented multi-role access systems and chatbot integrations',
     ],
   },
   {
@@ -20,11 +22,10 @@ const experiences = [
     period: 'Dec 2023 - Jan 2025',
     current: false,
     achievements: [
-      'Built fintech platform "Getways" with digital wallet management',
-      'Developed comprehensive HRMS with real-time notifications',
-      'Created AI-powered RFP platform "Winbid AI" with 60% time reduction',
-      'Implemented multi-role access systems and chatbot integrations',
-      'Designed RESTful APIs serving 10,000+ daily requests',
+      'Contributed to full-stack development with modern web technologies',
+      'Working on frontend and backend feature implementations',
+      'Collaborating with the development team on scalable solutions',
+      'Developed a comprehensive backend for Spacerenta with payment integration.',
     ],
   },
 ];
