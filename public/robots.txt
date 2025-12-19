@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+Disallow: /node_modules/
+Disallow: /.git/
+
+Sitemap: https://bhavinkarena.com/sitemap.xml
+
+# Crawl delay (in seconds)
+Crawl-delay: 1
