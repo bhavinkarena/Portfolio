@@ -91,12 +91,12 @@ const Navbar = () => {
           isMobileMenuOpen ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-full pointer-events-none'
         }`}
       >
-        <div className="w-full h-full px-6 pt-24 pb-8 flex flex-col gap-6 overflow-y-auto">
+        <div className="w-full h-full px-6 pt-24 pb-8 flex flex-col gap-2 overflow-y-auto">
           {navLinks.map((link) => (
             <a
               key={link.name}
               href={link.href}
-              className="text-foreground hover:text-primary transition-colors duration-300 text-2xl font-medium py-3 border-b border-border/30"
+              className="text-foreground hover:text-primary transition-colors duration-300 text-base font-medium py-2 border-b border-border/30"
               onClick={handleLinkClick}
             >
               {link.name}
@@ -104,7 +104,7 @@ const Navbar = () => {
           ))}
           <Button
             variant="outline"
-            className="border-primary text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-300 w-full mt-4 py-6 text-lg"
+            className="border-primary text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-300 w-full mt-4 py-4 text-sm"
             onClick={() => {
               window.open('https://drive.google.com/file/d/1mltYNBas7MojEUQbVrJlNwZIsAaDsVR5/view?usp=sharing', '_blank');
               handleLinkClick();
