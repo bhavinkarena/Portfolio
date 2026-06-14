@@ -19,6 +19,24 @@ const socialLinks = [
   { icon: Mail, href: 'mailto:bhavinkarena2003@gmail.com', label: 'Email' },
 ];
 
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+const validate = (data) => {
+  const errors = {};
+  if (!data.name.trim()) errors.name = 'Please enter your name';
+  else if (data.name.trim().length < 2) errors.name = 'Name is too short';
+
+  if (!data.email.trim()) errors.email = 'Please enter your email';
+  else if (!EMAIL_REGEX.test(data.email.trim())) errors.email = 'Enter a valid email address';
+
+  if (!data.subject.trim()) errors.subject = 'Please add a subject';
+
+  if (!data.message.trim()) errors.message = 'Please write a message';
+  else if (data.message.trim().length < 10) errors.message = 'Message should be at least 10 characters';
+
+  return errors;
+};
+
 const ContactSection = () => {
   const { ref, isVisible } = useScrollAnimation();
   const { toast } = useToast();
@@ -29,14 +47,46 @@ const ContactSection = () => {
     subject: '',
     message: '',
   });
+  const [errors, setErrors] = useState({});
+  // Honeypot: real users never fill this hidden field; bots usually do.
+  const [honeypot, setHoneypot] = useState('');
 
   // Initialize EmailJS
   useEffect(() => {
     emailjs.init('y8nga4C7rPwjBlCVt');
   }, []);
 
+  const handleChange = (field, value) => {
+    setFormData((prev) => ({ ...prev, [field]: value }));
+    // Clear the error for a field as soon as the user edits it
+    setErrors((prev) => (prev[field] ? { ...prev, [field]: undefined } : prev));
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Honeypot tripped → silently pretend success, skip the send
+    if (honeypot) {
+      toast({
+        title: 'Message Sent!',
+        description: "Thank you for reaching out. I'll get back to you soon!",
+      });
+      setFormData({ name: '', email: '', subject: '', message: '' });
+      return;
+    }
+
+    const validationErrors = validate(formData);
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      toast({
+        title: 'Please check the form',
+        description: 'Some fields need your attention before sending.',
+        variant: 'destructive',
+      });
+      return;
+    }
+
+    setErrors({});
     setIsLoading(true);
 
     try {
@@ -95,17 +145,30 @@ const ContactSection = () => {
                 isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'
               }`}
             >
-              <form onSubmit={handleSubmit} className="space-y-6">
+              <form onSubmit={handleSubmit} className="space-y-6" noValidate>
+                {/* Honeypot field (hidden from real users, catches bots) */}
+                <input
+                  type="text"
+                  name="company"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  aria-hidden="true"
+                  value={honeypot}
+                  onChange={(e) => setHoneypot(e.target.value)}
+                  className="hidden"
+                />
+
                 <div className="grid sm:grid-cols-2 gap-6">
                   <div>
                     <label className="text-sm font-medium text-foreground mb-2 block">Name</label>
                     <Input
                       placeholder="Your name"
                       value={formData.name}
-                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      required
-                      className="bg-muted/50 border-border focus:border-primary"
+                      onChange={(e) => handleChange('name', e.target.value)}
+                      aria-invalid={!!errors.name}
+                      className={`bg-muted/50 focus:border-primary ${errors.name ? 'border-destructive' : 'border-border'}`}
                     />
+                    {errors.name && <p className="text-destructive text-xs mt-1.5">{errors.name}</p>}
                   </div>
                   <div>
                     <label className="text-sm font-medium text-foreground mb-2 block">Email</label>
@@ -113,10 +176,11 @@ const ContactSection = () => {
                       type="email"
                       placeholder="your@email.com"
                       value={formData.email}
-                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      required
-                      className="bg-muted/50 border-border focus:border-primary"
+                      onChange={(e) => handleChange('email', e.target.value)}
+                      aria-invalid={!!errors.email}
+                      className={`bg-muted/50 focus:border-primary ${errors.email ? 'border-destructive' : 'border-border'}`}
                     />
+                    {errors.email && <p className="text-destructive text-xs mt-1.5">{errors.email}</p>}
                   </div>
                 </div>
                 <div>
@@ -124,10 +188,11 @@ const ContactSection = () => {
                   <Input
                     placeholder="What's this about?"
                     value={formData.subject}
-                    onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                    required
-                    className="bg-muted/50 border-border focus:border-primary"
+                    onChange={(e) => handleChange('subject', e.target.value)}
+                    aria-invalid={!!errors.subject}
+                    className={`bg-muted/50 focus:border-primary ${errors.subject ? 'border-destructive' : 'border-border'}`}
                   />
+                  {errors.subject && <p className="text-destructive text-xs mt-1.5">{errors.subject}</p>}
                 </div>
                 <div>
                   <label className="text-sm font-medium text-foreground mb-2 block">Message</label>
@@ -135,10 +200,11 @@ const ContactSection = () => {
                     placeholder="Your message..."
                     rows={5}
                     value={formData.message}
-                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    required
-                    className="bg-muted/50 border-border focus:border-primary resize-none"
+                    onChange={(e) => handleChange('message', e.target.value)}
+                    aria-invalid={!!errors.message}
+                    className={`bg-muted/50 focus:border-primary resize-none ${errors.message ? 'border-destructive' : 'border-border'}`}
                   />
+                  {errors.message && <p className="text-destructive text-xs mt-1.5">{errors.message}</p>}
                 </div>
                 <Button
                   type="submit"

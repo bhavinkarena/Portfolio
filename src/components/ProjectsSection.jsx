@@ -35,6 +35,10 @@ const colorMap = {
   "amber-yellow": { from: "#f59e0b", to: "#eab308" },
 };
 
+// Map a full-res image path to its lightweight JPEG thumbnail in /thumbs
+const thumbOf = (img) =>
+  img ? img.replace(/^\//, "/thumbs/").replace(/\.\w+$/, ".jpg") : img;
+
 const projects = [
   {
     title: "Runner Spike",
@@ -475,6 +479,105 @@ const ProjectsSection = () => {
   const { ref, isVisible } = useScrollAnimation();
   const [selectedProject, setSelectedProject] = useState(null);
 
+  const featured = projects.slice(0, 2);
+  const rest = projects.slice(2);
+
+  const renderCard = (project, index, isFeatured) => (
+    <div
+      key={project.title}
+      className={`group card-glass rounded-2xl overflow-hidden card-hover transition-all duration-700 ${
+        project.glow
+      } ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
+      style={{ transitionDelay: `${index * 120}ms` }}
+    >
+      {/* Thumbnail */}
+      <div className={`relative overflow-hidden ${isFeatured ? "h-56" : "h-44"}`}>
+        {project.image ? (
+          <img
+            src={thumbOf(project.image)}
+            alt={project.title}
+            loading="lazy"
+            decoding="async"
+            className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-110"
+          />
+        ) : (
+          <div
+            className="w-full h-full"
+            style={{
+              background: `linear-gradient(135deg, ${colorMap[project.colorKey].from}, ${colorMap[project.colorKey].to})`,
+            }}
+          />
+        )}
+        {/* Image overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-card via-card/30 to-transparent opacity-90" />
+
+        {/* Status badge */}
+        <span className="absolute top-3 right-3 px-3 py-1 rounded-full bg-background/80 backdrop-blur text-xs font-medium text-primary border border-primary/30">
+          {project.status}
+        </span>
+
+        {/* Title over image */}
+        <div className="absolute bottom-3 left-4 right-4">
+          <span className="text-[11px] font-mono text-primary/90">{project.subtitle}</span>
+          <h3 className="text-xl md:text-2xl font-bold text-foreground leading-tight">
+            {project.title}
+          </h3>
+        </div>
+      </div>
+
+      <div className="p-6">
+        <p
+          className={`text-muted-foreground text-sm mb-5 leading-relaxed ${
+            isFeatured ? "line-clamp-3" : "line-clamp-2"
+          }`}
+        >
+          {project.description}
+        </p>
+
+        {/* Tech Stack */}
+        <div className="flex flex-wrap gap-2 mb-5">
+          {project.techStack.slice(0, isFeatured ? 5 : 3).map((tech) => (
+            <span
+              key={tech}
+              className="px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-medium"
+            >
+              {tech}
+            </span>
+          ))}
+          {project.techStack.length > (isFeatured ? 5 : 3) && (
+            <span className="px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-medium">
+              +{project.techStack.length - (isFeatured ? 5 : 3)}
+            </span>
+          )}
+        </div>
+
+        {/* Actions */}
+        <div className="flex gap-3">
+          <Button
+            variant="outline"
+            size="sm"
+            className="border-primary/50 text-primary hover:bg-primary/10 flex-1"
+            onClick={() => setSelectedProject(project)}
+          >
+            <Eye size={16} className="mr-2" />
+            View Details
+          </Button>
+          {project.link && (
+            <a href={project.link} target="_blank" rel="noopener noreferrer">
+              <Button
+                variant="default"
+                size="sm"
+                className="bg-primary text-primary-foreground hover:bg-primary/90"
+              >
+                <ExternalLink size={16} />
+              </Button>
+            </a>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+
   return (
     <section id="projects" className="section-padding relative overflow-hidden">
       <div className="w-full px-4 md:container md:mx-auto">
@@ -496,108 +599,14 @@ const ProjectsSection = () => {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {projects.map((project, index) => (
-              <div
-                key={project.title}
-                className={`group card-glass rounded-2xl overflow-hidden card-hover transition-all duration-700 ${
-                  project.glow
-                } ${
-                  isVisible
-                    ? "opacity-100 translate-y-0"
-                    : "opacity-0 translate-y-10"
-                }`}
-                style={{ transitionDelay: `${index * 150}ms` }}
-              >
-                {/* Gradient header */}
-                <div
-                  className="h-2"
-                  style={{
-                    background: `linear-gradient(to right, ${
-                      colorMap[project.colorKey].from
-                    }, ${colorMap[project.colorKey].to})`,
-                  }}
-                />
+          {/* Featured projects */}
+          <div className="grid md:grid-cols-2 gap-6 md:gap-8 mb-8">
+            {featured.map((project, index) => renderCard(project, index, true))}
+          </div>
 
-                <div className="p-8">
-                  <div className="mb-6">
-                    <span className="text-xs font-mono text-muted-foreground">
-                      {project.subtitle}
-                    </span>
-                    <h3 className="text-2xl font-bold text-foreground mt-1 group-hover:text-primary transition-colors">
-                      {project.title}
-                    </h3>
-                  </div>
-
-                  <p className="text-muted-foreground text-sm mb-6 leading-relaxed line-clamp-3">
-                    {project.description}
-                  </p>
-
-                  {/* Tech Stack */}
-                  <div className="flex flex-wrap gap-2 mb-6">
-                    {project.techStack.slice(0, 4).map((tech) => (
-                      <span
-                        key={tech}
-                        className="px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-medium"
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                    {project.techStack.length > 4 && (
-                      <span className="px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-medium">
-                        +{project.techStack.length - 4}
-                      </span>
-                    )}
-                  </div>
-
-                  {/* Features */}
-                  <ul className="space-y-3 mb-8">
-                    {project.features.slice(0, 3).map((feature) => (
-                      <li
-                        key={feature.text}
-                        className="flex items-center gap-3"
-                      >
-                        <feature.icon
-                          size={16}
-                          className="text-primary flex-shrink-0"
-                        />
-                        <span className="text-muted-foreground text-sm">
-                          {feature.text}
-                        </span>
-                      </li>
-                    ))}
-                  </ul>
-
-                  {/* Actions */}
-                  <div className="flex gap-3">
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      className="border-primary/50 text-primary hover:bg-primary/10 flex-1"
-                      onClick={() => setSelectedProject(project)}
-                    >
-                      <Eye size={16} className="mr-2" />
-                      View Details
-                    </Button>
-                    {project.link && (
-                      <a
-                        href={project.link}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <Button
-                          variant="default"
-                          size="sm"
-                          className="bg-primary text-primary-foreground hover:bg-primary/90"
-                        >
-                          <ExternalLink size={16} />
-                        </Button>
-                      </a>
-                    )}
-                  </div>
-                </div>
-              </div>
-            ))}
+          {/* Remaining projects */}
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {rest.map((project, index) => renderCard(project, index + 2, false))}
           </div>
         </div>
       </div>
@@ -633,9 +642,11 @@ const ProjectsSection = () => {
               {selectedProject.image && (
                 <div className="relative h-64 md:h-96 rounded-xl overflow-hidden border border-border">
                   <img
-                    src={selectedProject.image}
+                    src={thumbOf(selectedProject.image)}
                     alt={selectedProject.title}
-                    className="w-full h-full object-cover"
+                    loading="lazy"
+                    decoding="async"
+                    className="w-full h-full object-cover object-top"
                   />
                 </div>
               )}

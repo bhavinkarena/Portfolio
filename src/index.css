@@ -197,6 +197,21 @@
     background: linear-gradient(145deg, hsl(var(--card)) 0%, hsl(var(--card) / 0.8) 100%);
   }
 
+  /* Light-mode: lift cards off the near-white background */
+  .light .card-glass {
+    @apply border-border;
+    box-shadow: var(--shadow-card);
+  }
+  .light .card-hover:hover {
+    box-shadow: var(--shadow-hover);
+  }
+  /* Light-mode: make the dotted grid + cursor glow visible but subtle */
+  .light .grid-backdrop {
+    background-image:
+      linear-gradient(hsl(215 25% 35% / 0.07) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(215 25% 35% / 0.07) 1px, transparent 1px);
+  }
+
   /* Premium card: lift + animated border glow + light shine sweep */
   .card-hover {
     @apply relative transition-all duration-500;
