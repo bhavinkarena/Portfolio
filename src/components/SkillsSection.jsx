@@ -59,6 +59,8 @@ const skillCategories = [
   },
 ];
 
+const marqueeSkills = skillCategories.flatMap((c) => c.skills);
+
 const SkillsSection = () => {
   const { ref, isVisible } = useScrollAnimation();
 
@@ -82,6 +84,20 @@ const SkillsSection = () => {
             <p className="text-muted-foreground max-w-2xl mx-auto">
               Technologies and tools I use to bring ideas to life.
             </p>
+          </div>
+
+          {/* Animated tech marquee */}
+          <div className="relative mb-16 overflow-hidden [mask-image:linear-gradient(90deg,transparent,black_12%,black_88%,transparent)]">
+            <div className="flex w-max animate-marquee gap-4 hover:[animation-play-state:paused]">
+              {[...marqueeSkills, ...marqueeSkills].map((skill, i) => (
+                <span
+                  key={`${skill}-${i}`}
+                  className="px-5 py-2.5 rounded-full border border-border bg-card/50 backdrop-blur text-sm font-medium text-muted-foreground hover:text-primary hover:border-primary/50 transition-colors whitespace-nowrap"
+                >
+                  {skill}
+                </span>
+              ))}
+            </div>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">

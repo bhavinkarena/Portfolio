@@ -14,12 +14,25 @@ const navLinks = [
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState('home');
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
+
+      // Scroll-spy: find the section currently in view
+      const offset = window.innerHeight * 0.35;
+      let current = 'home';
+      for (const link of navLinks) {
+        const el = document.getElementById(link.href.slice(1));
+        if (el && el.getBoundingClientRect().top <= offset) {
+          current = link.href.slice(1);
+        }
+      }
+      setActiveSection(current);
     };
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -56,16 +69,25 @@ const Navbar = () => {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-8">
-            {navLinks.map((link) => (
-              <a
-                key={link.name}
-                href={link.href}
-                className="text-muted-foreground hover:text-primary transition-colors duration-300 text-sm font-medium relative group"
-              >
-                {link.name}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full" />
-              </a>
-            ))}
+            {navLinks.map((link) => {
+              const isActive = activeSection === link.href.slice(1);
+              return (
+                <a
+                  key={link.name}
+                  href={link.href}
+                  className={`transition-colors duration-300 text-sm font-medium relative group ${
+                    isActive ? 'text-primary' : 'text-muted-foreground hover:text-primary'
+                  }`}
+                >
+                  {link.name}
+                  <span
+                    className={`absolute -bottom-1 left-0 h-0.5 bg-primary transition-all duration-300 ${
+                      isActive ? 'w-full' : 'w-0 group-hover:w-full'
+                    }`}
+                  />
+                </a>
+              );
+            })}
             <Button
               variant="outline"
               className="border-primary text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-300"
@@ -106,7 +128,7 @@ const Navbar = () => {
             variant="outline"
             className="border-primary text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-300 w-full mt-4 py-4 text-sm"
             onClick={() => {
-              window.open('https://drive.google.com/file/d/1mltYNBas7MojEUQbVrJlNwZIsAaDsVR5/view?usp=sharing', '_blank');
+              window.open('https://drive.google.com/file/d/1PivCPN1p5vC76aNMtMXjhB8weqSM7OdW/view?usp=sharing', '_blank');
               handleLinkClick();
             }}
           >

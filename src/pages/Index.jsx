@@ -1,4 +1,5 @@
 import Navbar from '@/components/Navbar';
+import ScrollProgress from '@/components/ScrollProgress';
 import ParticleBackground from '@/components/ParticleBackground';
 import HeroSection from '@/components/HeroSection';
 import AboutSection from '@/components/AboutSection';
@@ -12,6 +13,7 @@ import BackToTop from '@/components/BackToTop';
 const Index = () => {
   return (
     <div className="min-h-screen bg-background relative overflow-x-hidden">
+      <ScrollProgress />
       <ParticleBackground />
       <Navbar />
       <main>

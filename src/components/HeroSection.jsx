@@ -1,8 +1,15 @@
 import { useEffect, useState } from 'react';
-import { MapPin, Mail, Phone, Linkedin, Github } from 'lucide-react';
+import { MapPin, Mail, Phone, Linkedin, Github, ChevronDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 const roles = ['Full-Stack Developer', 'Backend Developer', 'React Developer', 'AI Integration Specialist'];
+
+const techChips = [
+  { label: 'React', pos: { top: '8%', left: '-8%' } },
+  { label: 'Node.js', pos: { top: '38%', right: '-10%' } },
+  { label: 'MongoDB', pos: { bottom: '20%', left: '-10%' } },
+  { label: 'AI / LLMs', pos: { top: '-4%', right: '8%' } },
+];
 
 const HeroSection = () => {
   const [currentRoleIndex, setCurrentRoleIndex] = useState(0);
@@ -68,7 +75,7 @@ const HeroSection = () => {
               <p className="text-xl md:text-2xl lg:text-3xl text-muted-foreground font-light">
                 <span className="text-primary font-mono">&lt;</span>
                 {displayText}
-                <span className="animate-pulse text-primary">|</span>
+                <span className="animate-blink text-primary">|</span>
                 <span className="text-primary font-mono">/&gt;</span>
               </p>
             </div>
@@ -103,7 +110,7 @@ const HeroSection = () => {
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-3 rounded-full border border-border hover:border-primary hover:bg-primary/10 text-muted-foreground hover:text-primary transition-all duration-300 group"
+                  className="p-3 rounded-full border border-border hover:border-primary hover:bg-primary/10 text-muted-foreground hover:text-primary transition-all duration-300 group hover-glow"
                   aria-label={social.label}
                 >
                   <social.icon size={22} className="group-hover:scale-110 transition-transform" />
@@ -117,27 +124,46 @@ const HeroSection = () => {
             <div className="relative group">
               {/* Animated gradient background */}
               <div className="absolute -inset-4 bg-gradient-to-r from-primary via-secondary to-primary rounded-3xl blur-2xl opacity-30 group-hover:opacity-50 animate-pulse transition duration-1000"></div>
-              
+
               {/* Decorative elements */}
               <div className="absolute -top-4 -right-4 w-24 h-24 bg-primary/20 rounded-full blur-xl animate-float"></div>
               <div className="absolute -bottom-4 -left-4 w-32 h-32 bg-secondary/20 rounded-full blur-xl animate-float" style={{ animationDelay: '2s' }}></div>
-              
+
+              {/* Floating tech chips */}
+              {techChips.map((chip, i) => (
+                <div
+                  key={chip.label}
+                  className="hidden sm:flex absolute z-20 items-center px-3 py-1.5 rounded-full bg-background/90 backdrop-blur-md border border-primary/30 text-xs font-mono text-primary shadow-lg animate-float"
+                  style={{ ...chip.pos, animationDelay: `${i * 0.7}s` }}
+                >
+                  {chip.label}
+                </div>
+              ))}
+
               {/* Main photo container */}
               <div className="relative">
-                <div className="relative overflow-hidden rounded-3xl border-4 border-background shadow-2xl ring-2 ring-primary/30 group-hover:ring-primary/60 transition-all duration-500">
+                {/* Rotating conic ring */}
+                <div className="absolute -inset-[6px] rounded-full conic-ring opacity-70 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <div className="absolute -inset-[2px] rounded-full bg-background"></div>
+
+                <div className="relative overflow-hidden rounded-full border-4 border-background shadow-2xl ring-2 ring-primary/30 group-hover:ring-primary/60 transition-all duration-500">
                   <img
                     src="/profile.jpeg"
                     alt="Bhavin Karena - Full Stack Developer"
-                    className="w-72 h-72 sm:w-96 sm:h-96 lg:w-[450px] lg:h-[450px] xl:w-[500px] xl:h-[500px] object-cover group-hover:scale-110 transition-transform duration-700"
+                    className="w-72 h-72 sm:w-96 sm:h-96 lg:w-[450px] lg:h-[450px] object-cover group-hover:scale-110 transition-transform duration-700"
                   />
                   {/* Overlay gradient */}
                   <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                 </div>
-                
+
                 {/* Floating badge */}
-                <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 px-6 py-3 bg-background/95 backdrop-blur-sm border border-primary/30 rounded-full shadow-lg">
-                  <p className="text-sm font-semibold text-primary whitespace-nowrap">
-                    ⚡ Available for Work
+                <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 px-6 py-3 bg-background/95 backdrop-blur-sm border border-primary/30 rounded-full shadow-lg z-20">
+                  <p className="text-sm font-semibold text-primary whitespace-nowrap flex items-center gap-2">
+                    <span className="relative flex h-2.5 w-2.5">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+                      <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-primary"></span>
+                    </span>
+                    Available for Work
                   </p>
                 </div>
               </div>
@@ -146,6 +172,19 @@ const HeroSection = () => {
 
         </div>
       </div>
+
+      {/* Scroll-down indicator */}
+      <button
+        onClick={() => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })}
+        className="hidden md:flex absolute bottom-8 left-1/2 -translate-x-1/2 flex-col items-center gap-2 text-muted-foreground hover:text-primary transition-colors group z-10"
+        aria-label="Scroll to About"
+      >
+        <span className="text-xs font-mono tracking-widest uppercase">Scroll</span>
+        <span className="w-6 h-10 rounded-full border-2 border-current flex items-start justify-center p-1.5">
+          <span className="w-1 h-2 rounded-full bg-current animate-bounce-down" />
+        </span>
+        <ChevronDown size={16} className="animate-bounce-down" />
+      </button>
     </section>
   );
 };
