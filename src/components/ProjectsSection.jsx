@@ -41,6 +41,78 @@ const thumbOf = (img) =>
 
 const projects = [
   {
+    title: "AOG Coin",
+    subtitle: "Sweepstakes Casino Platform",
+    description:
+      "Full-stack sweepstakes casino platform with a dual-currency system (Gold Coins & Sweepstakes Coins), 80+ integrated games, multi-gateway payments, and a real-time wallet powered by Socket.IO.",
+    image: "/aog-coin.png",
+    techStack: [
+      "MERN",
+      "MySQL",
+      "Socket.IO",
+      "AWS",
+      "Finix",
+      "JWT",
+    ],
+    features: [
+      { icon: Wallet, text: "Dual-Currency Wallet System" },
+      { icon: CreditCard, text: "Multi-Gateway Payments (Finix)" },
+      { icon: Zap, text: "Real-Time Balance Updates" },
+      { icon: Lock, text: "KYC & Fraud Prevention" },
+    ],
+    keyFeatures: [
+      {
+        title: "Dual-Currency System",
+        description:
+          "Gold Coins and Sweepstakes Coins economy with 80+ integrated games, balancing free-play and redeemable currencies.",
+      },
+      {
+        title: "Multi-Gateway Payments",
+        description:
+          "Finix payment integration with webhook-driven transaction lifecycle and automated settlement handling.",
+      },
+      {
+        title: "Real-Time Wallet & Transactions",
+        description:
+          "Socket.IO-powered wallet with instant balance updates and live notifications across connected clients.",
+      },
+      {
+        title: "Role-Based Access Control",
+        description:
+          "Secure authentication with JWT, session management, and single-device login enforcement across Player, Agent, and Admin roles.",
+      },
+      {
+        title: "KYC & Fraud Prevention",
+        description:
+          "Document validation, reCAPTCHA, and referral abuse detection to verify users and prevent fraudulent activity.",
+      },
+    ],
+    technicalImplementation: [
+      "**Dual-Currency Ledger**: Gold Coin and Sweepstakes Coin balances managed with atomic transaction handling in MySQL",
+      "**Finix Integration**: Multi-gateway payment processing with webhook-driven transaction lifecycle and automated settlements",
+      "**Real-Time Updates**: Socket.IO for instant wallet balance updates and live notifications",
+      "**Authentication**: JWT with session management and single-device login enforcement for Player, Agent, and Admin roles",
+      "**AWS S3 Integration**: Secure storage of KYC documents and user assets with controlled access",
+    ],
+    colorKey: "amber-yellow",
+    glow: "hover:shadow-amber-500/20",
+    link: "https://aogcoin.club",
+    role: "Software Developer",
+    status: "In Progress",
+    challenges: [
+      "Designing a dual-currency ledger with atomic, consistent balance updates",
+      "Implementing Finix multi-gateway payments with webhook-driven settlement",
+      "Building a real-time wallet with instant balance sync via Socket.IO",
+      "Creating KYC verification and referral abuse detection to prevent fraud",
+    ],
+    learnings: [
+      "Mastered webhook-driven payment lifecycles and automated settlement flows",
+      "Gained expertise in real-time balance synchronization with Socket.IO",
+      "Learned single-device login enforcement and secure session management",
+      "Developed skills in KYC and fraud-prevention system design",
+    ],
+  },
+  {
     title: "Runner Spike",
     subtitle: "Full Stack E-Commerce Platform",
     description:
@@ -334,77 +406,6 @@ const projects = [
     ],
   },
   {
-    title: "Game Admin Portal",
-    subtitle: "Gaming Platform Administration",
-    description:
-      "Comprehensive gaming platform administration system with real-time balance management, hierarchical user management, transaction reporting, and AI-powered chatbot support.",
-    image: "/game-admin-portal.png",
-    techStack: [
-      "React",
-      "Node.js",
-      "Parse Server",
-      "MongoDB",
-      "Socket.IO",
-      "OpenAI",
-    ],
-    features: [
-      { icon: Users, text: "7-Tier Hierarchical User Management" },
-      { icon: Zap, text: "Real-Time Balance System" },
-      { icon: BarChart3, text: "Comprehensive Reporting" },
-      { icon: Bot, text: "AI-Powered Support Chatbot" },
-    ],
-    keyFeatures: [
-      {
-        title: "Hierarchical User Management",
-        description:
-          "7-tier role system (Super-User → Player) with cascading permissions and automated subordinate tracking for commission calculations.",
-      },
-      {
-        title: "Real-Time Balance System",
-        description:
-          "WebSocket-powered balance updates with encrypted payloads, batch spin processing, and automatic fraud detection mechanisms.",
-      },
-      {
-        title: "Comprehensive Reporting",
-        description:
-          "Transaction reports, agent performance analytics, game coin statistics, and daily automated email reports.",
-      },
-      {
-        title: "AI-Powered Support Chatbot",
-        description:
-          "OpenAI GPT-3.5 integrated chatbot with role-based context awareness and conversation history.",
-      },
-      {
-        title: "Game RTP Configuration",
-        description:
-          "Dynamic Return-to-Player settings with reel configuration and support for multiple game types.",
-      },
-    ],
-    technicalImplementation: [
-      "**Parse Cloud Functions**: 20+ custom functions handling authentication, transactions, and reporting",
-      "**WebSocket Events**: Real-time balance updates, maintenance alerts, and encrypted game communications",
-      "**Cron Jobs**: Automated daily reports, game statistics aggregation, and leaderboard updates",
-      "**AWS S3 Integration**: Secure file storage for support ticket attachments with pre-signed URLs",
-      "**MongoDB Aggregation**: Complex pipelines for transaction summaries and hierarchical data queries",
-    ],
-    colorKey: "purple-pink",
-    glow: "hover:shadow-purple-500/20",
-    role: "Full Stack Developer",
-    status: "In Progress",
-    challenges: [
-      "Implementing real-time balance synchronization with encrypted WebSocket payloads",
-      "Building complex hierarchical user management with 7 role levels",
-      "Designing efficient MongoDB aggregation pipelines for millions of records",
-      "Creating secure device ID verification system to prevent fraud",
-    ],
-    learnings: [
-      "Mastered Parse Server cloud functions for scalable BaaS solutions",
-      "Gained expertise in WebSocket event handling for real-time gaming",
-      "Learned efficient caching strategies and cursor-based pagination",
-      "Developed skills in building multi-tenant admin dashboards",
-    ],
-  },
-  {
     title: "Getways",
     subtitle: "Fintech Platform",
     description:
@@ -642,7 +643,7 @@ const ProjectsSection = () => {
               {selectedProject.image && (
                 <div className="relative h-64 md:h-96 rounded-xl overflow-hidden border border-border">
                   <img
-                    src={thumbOf(selectedProject.image)}
+                    src={selectedProject.image}
                     alt={selectedProject.title}
                     loading="lazy"
                     decoding="async"

@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(sips -s format jpeg -Z 640 public/aog-coin.png --out public/thumbs/aog-coin.jpg)",
+      "Bash(sips -g pixelWidth -g pixelHeight public/hrms.jpg public/aog-coin.png)",
+      "Bash(sips -s format jpeg --resampleWidth 640 public/aog-coin.png --out public/thumbs/aog-coin.jpg)",
+      "Bash(sips -g pixelWidth -g pixelHeight public/thumbs/hrms.jpg)",
+      "Bash(sips -s format jpeg -s formatOptions 80 --resampleWidth 640 public/aog-coin.png --out public/thumbs/aog-coin.jpg)"
+    ]
+  }
+}
