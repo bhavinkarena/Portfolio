@@ -97,7 +97,7 @@ const Navbar = () => {
               className="border-primary text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-300"
               onClick={() =>
                 window.open(
-                  "https://drive.google.com/file/d/1PivCPN1p5vC76aNMtMXjhB8weqSM7OdW/view?usp=sharing",
+                  "https://drive.google.com/file/d/1Yh_UyjY_DNzL0sY1oumfl55ztxiWh19f/view?usp=sharing",
                   "_blank",
                 )
               }
@@ -144,7 +144,7 @@ const Navbar = () => {
             className="border-primary text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-300 w-full mt-4 py-4 text-sm"
             onClick={() => {
               window.open(
-                "https://drive.google.com/file/d/1PivCPN1p5vC76aNMtMXjhB8weqSM7OdW/view?usp=sharing",
+                "https://drive.google.com/file/d/1Yh_UyjY_DNzL0sY1oumfl55ztxiWh19f/view?usp=sharing",
                 "_blank",
               );
               handleLinkClick();
