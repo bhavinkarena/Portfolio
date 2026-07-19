@@ -97,7 +97,7 @@ const Navbar = () => {
               className="border-primary text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-300"
               onClick={() =>
                 window.open(
-                  "https://drive.google.com/file/d/1mltYNBas7MojEUQbVrJlNwZIsAaDsVR5/view?usp=sharing",
+                  "https://drive.google.com/file/d/1PivCPN1p5vC76aNMtMXjhB8weqSM7OdW/view?usp=sharing",
                   "_blank",
                 )
               }
